@@ -1,0 +1,28 @@
+FROM python:3.12
+
+WORKDIR /workdir
+
+ENV PYTHONPATH "${PYTHONPATH}:/workdir/app"
+ENV POETRY_VIRTUALENVS_CREATE=false
+ENV POETRY_VIRTUALENVS_IN_PROJECT=true
+ENV POETRY_NO_INTERACTION=1
+
+RUN pip install poetry
+
+COPY app ./app
+COPY ./pyproject.toml .
+COPY ./alembic.ini .
+COPY migrations ./migrations
+COPY celery_task ./celery_task
+COPY scripts ./scripts
+
+RUN poetry install --only main --no-root --no-interaction --no-ansi \
+  && rm -rf "./.cache"
+
+EXPOSE 8000
+
+CMD ["sh", "-c", "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port 8000"]
+# CMD ["sh", "-c", "alembic upgrade head && python3 scripts/insert_bar_old_data.py && uvicorn app.main:app --host 0.0.0.0 --port 8000"]
+# CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+# CMD ["python", "celery/consumer.py"]
+# CMD ["python", "app/scheduler.py"]

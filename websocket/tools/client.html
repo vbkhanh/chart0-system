@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket Client</title>
+</head>
+<body>
+    <h1>WebSocket Client</h1>
+    <div id="messages"></div>
+
+    <script>
+        const token = 'test'; // Replace with actual token
+        const socket = new WebSocket(`wss://symbol-service.websocket.firmbond.hn.eaera.com/pubsub?token=${token}`);
+
+        var payload = {request: {method: "subscribe", "arguments": {"topics":["topic1", "EURCAD", "topic3"]}}}
+        var payload_str = JSON.stringify(payload)
+
+        socket.onopen = function(event) {
+            console.log('WebSocket is open now.');
+            socket.send(JSON.stringify(payload));
+
+            // // Set an interval to push a message with topic EURCAD to the WebSocket server every 30 seconds
+            // setInterval(() => {
+            //     const intervalMessage = {request: {method: "publish", "arguments": {"topic": "EURCAD"}}, "data": {"hello": 1}};
+            //     socket.send(JSON.stringify(intervalMessage));
+            //     console.log('Interval message with topic EURCAD sent to WebSocket server.');
+            // }, 30000); // 30000 milliseconds = 30 seconds
+        };
+
+        socket.onmessage = function(event) {
+            const messagesDiv = document.getElementById('messages');
+            const message = document.createElement('p');
+            message.textContent = `Received: ${event.data}`;
+            messagesDiv.appendChild(message);
+        };
+
+        socket.onclose = function(event) {
+            console.log('WebSocket is closed now.');
+        };
+
+        socket.onerror = function(error) {
+            console.error('WebSocket error:', error);
+        };
+    </script>
+</body>
+</html>

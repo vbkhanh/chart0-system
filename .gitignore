@@ -1,0 +1,7 @@
+__pycache__
+venv
+*.env
+tmp
+docs
+API_docs.md
+celerybeat-schedule

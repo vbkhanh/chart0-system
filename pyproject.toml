@@ -1,0 +1,47 @@
+[tool.poetry]
+name = "mt5-symbol-service"
+version = "0.1.0"
+description = ""
+authors = ["khanh vu <khanhbv0212@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+fastapi = "^0.115.4"
+uvicorn = {extras = ["standard"], version = "^0.32.0"}
+pydantic-settings = "^2.6.1"
+sqlalchemy = "^2.0.36"
+sqlmodel = "^0.0.22"
+asyncpg = "^0.30.0"
+sqlalchemy-json = "^0.7.0"
+pydantic = "^2.10.0"
+email-validator = "^2.2.0"
+sqlalchemy-utils = "^0.41.2"
+bcrypt = "4.0.1"
+cryptography = "^43.0.3"
+pyjwt = "^2.10.0"
+redis = "^5.2.0"
+fastapi-mail = "^1.4.2"
+sendgrid = "^6.11.0"
+jinja2 = "^3.1.4"
+fastapi-websocket-pubsub = "^0.3.9"
+greenlet = "^3.1.1"
+passlib = "^1.7.4"
+alembic = "^1.14.0"
+psycopg2 = "^2.9.10"
+azure-storage-blob = "^12.24.0"
+python-multipart = "^0.0.19"
+aiohttp = "^3.11.10"
+kombu = "^5.4.2"
+apscheduler = "^3.11.0"
+numpy = "^2.2.1"
+matplotlib = "^3.10.0"
+celery = "^5.4.0"
+pandas = "^2.2.3"
+openpyxl = "^3.1.5"
+xlrd = "^2.0.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
